@@ -19,15 +19,17 @@
 # Default server configuration
 #
 server {
-        listen 443 default_server;
-        listen [::]:443 default_server;
+        # listen 80 default_server;
+        # listen [::]:80 default_server;
 
         # SSL configuration
+        
+        listen 443 ssl default_server;
+        listen [::]:443 ssl default_server;
+        ssl_certificate /etc/nginx/ssl/server.crt;
+        ssl_certificate_key /etc/nginx/ssl/server.key;
         #
-        # listen 443 ssl default_server;
-        # listen [::]:443 ssl default_server;
-        #
-        # Not`e: You should disable gzip for SSL traffic.
+        # Note: You should disable gzip for SSL traffic.
         # See: https://bugs.debian.org/773332
         #
         # Read up on ssl_ciphers to ensure a secure configuration.

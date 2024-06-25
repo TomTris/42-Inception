@@ -10,8 +10,7 @@ RUN mkdir -p /etc/nginx/ssl \
 
 # openssl x509 -in /etc/nginx/ssl/server.crt  -text -noout
 
-EXPOSE 80
-EXPOSE 80
+EXPOSE 443
 
 COPY ./default /etc/nginx/sites-enabled/default
 COPY ./nginx.cnf /etc/nginx/nginx.cnf
