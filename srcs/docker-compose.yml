@@ -1,0 +1,64 @@
+version: '3.7'
+
+services:
+  mariadb:
+    build: ./requirements/mariadb/.
+    container_name: mariadb_container
+    image: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - data_volume:/var/lib/mysql
+    networks:
+      - inception_network
+    env_file:
+      - .env
+    environment:
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_USER_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
+      WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 3s
+      retries: 3
+
+  wordpress:
+    build: ./requirements/wordpress/.
+    container_name: wordpress_container
+    image: wordpress
+    ports:
+      - "9000:9000"
+    volumes:
+      - static_volume:/var/www/html
+    networks:
+      - inception_network
+    env_file:
+      - .env
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  nginx:
+    build: ./requirements/nginx/.
+    container_name: nginx_container
+    image: nginx
+    ports:
+      - "443:443"
+    volumes:
+      - static_volume:/var/www/html
+    networks:
+      - inception_network
+    depends_on:
+      - mariadb
+      - wordpress
+    
+networks:
+  inception_network:
+    name: inception_network
+
+volumes:
+  data_volume:
+  static_volume:

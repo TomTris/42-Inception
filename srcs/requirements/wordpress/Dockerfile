@@ -1,20 +1,32 @@
-FROM nginx:latest
+FROM debian:bullseye
 
-# apt-get unstall -y nginx
-# RUN apt-get update && apt-get install -y nginx openssl curl
-## && rm -rf /var/lib/apt/lists/
+RUN apt-get update && apt-get install -y \
+    php-fpm php-mysql php-gd php-xml \
+    curl wget tar \
+    gnupg2 \
+    && apt-get clean\
+    && rm -rf /var/lib/apt/lists/*
+#curl: using URLs to send data, wget download by link, tar - i
+#gnupg2 is for encryp and decrypting data, files .bla bla
 
-RUN mkdir -p /etc/nginx/ssl \
-	&& openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
-	-keyout /etc/nginx/ssl/server.key\
-	-out    /etc/nginx/ssl/server.crt\
-	-subj "/C=DE/ST=Baden-Wuerttemberg/L=Heilbronn/O=42Heilbronn/CN=qdo"
+RUN apt-get update && apt-get install -y \
+    mariadb-client \
+    && rm -rf /var/lib/apt/lists/*
 
-#openssl x509 -in /etc/nginx/ssl/server.crt  -text -noout
+RUN wget -q -O wordpress.tar.gz https://wordpress.org/latest.tar.gz\
+    && mkdir -p var/www/ \
+    && tar -xzf wordpress.tar.gz -C /var/www/ \
+    && rm wordpress.tar.gz \
+    && chown -R www-data:www-data /var/www/wordpress
 
-EXPOSE 80
-EXPOSE 443
+#wget -q: quite = no unecessary infos, -O...= outgut file name
+#tar -zxf ... -C /var/www/ -> unzip, put it to /var/www/
+#chown recursively to /var/www/wordpres -> webserve change it easily
 
-COPY ./default /etc//nginx/config.d/default.conf
+# Set environment variables for WordPress
+# COPY ./wp-config.php  /var/www/wordpress
+COPY ./init-wp.sh  /var/www/
 
-CMD ["/bin/bash"]
+EXPOSE 9000
+
+CMD ["/var/www/init-wp.sh"]
