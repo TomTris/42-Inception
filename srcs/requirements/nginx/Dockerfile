@@ -9,12 +9,11 @@ RUN mkdir -p /etc/nginx/ssl \
 	-subj "/C=DE/ST=Baden-Wuerttemberg/L=Heilbronn/O=42Heilbronn/CN=qdo" \
 	&& rm -rf /var/lib/apt/lists/*
 
-# openssl x509 -in /etc/nginx/ssl/server.crt  -text -noout
+# openssl x509 -in /etc/nginx/ssl/server.crt  -text -noout -to see subj
 
 EXPOSE 443
 
 COPY ./default /etc/nginx/sites-enabled/default
-COPY ./nginx.cnf /etc/nginx/nginx.cnf
 
 CMD ["nginx", "-g", "daemon off;"]
 # CMD ["/bin/bash"]
