@@ -1,18 +1,18 @@
 FROM debian:bullseye
 
-RUN mkdir -p /run/mysqld && chmod 777 /run/mysqld
+RUN mkdir -p /run/mysqld && chmod 777 /run/mysqld \
+    && mkdir -p /var/lib/mysql && chmod 777 /var/lib/mysql
 
 RUN apt-get update && apt-get upgrade \
-	&& apt-get install mariadb-server -y
-#	&& rm -rf /var/lib/apt/lists/*
+	&& apt-get install -y mariadb-server \
+	&& rm -rf /var/lib/apt/lists/*
 
-# COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-# COPY ./init_mariadb.sh /run/mysql/
+COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./init_mariadb.sh /run/mysql/
 
-# RUN chmod 777 /run/mysql/init_mariadb.sh
+RUN chmod 777 /run/mysql/init_mariadb.sh
 
-# EXPOSE 3306
+EXPOSE 3306
 
-# CMD ["/run/mysql/init_mariadb.sh"]
-CMD ["/bin/bash"]
-# 
+CMD ["/run/mysql/init_mariadb.sh"]
+# CMD ["/bin/bash"]
