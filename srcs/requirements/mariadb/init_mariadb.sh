@@ -1,11 +1,18 @@
-#!/bin/bash
-set -e
+#!/bin/sh
+service mariadb start
+sleep 5
 
-echo "CREATE USER '${WORDPRESS_DB_USER}'@'localhost' IDENTIFIED BY '${WORDPRESS_DB_USER_PASSWORD}';
-CREATE DATABASE ${WORDPRESS_DB_NAME};
-GRANT ALL PRIVILEGES ON '${WORDPRESS_DB_NAME}'.* 	TO '${WORDPRESS_DB_USER}'@'${WORDPRESS_DB_HOST}';
-FLUSH PRIVILEGES;" > /run/mysql/init_db.sql
+echo "CREATE DATABASE IF NOT EXISTS ${MYSQL_DATABASE};" > script.sql
+echo "CREATE USER IF NOT EXISTS'${WORDPRESS_USER1}'@'${WORDPRESS_DB_HOST}' IDENTIFIED BY '${WORDPRESS_USER1_PASSWORD}';" >> script.sql;
+echo "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${WORDPRESS_USER1}'@'${WORDPRESS_DB_HOST}';" >> script.sql;
+echo "ALTER USER 'root'@'%' IDENTIFIED BY '${MYSQL_ROOT_PASSWORD}' ;" >> setup.sql
+echo "FLUSH PRIVILEGES;" >> script.sql;
+mysql < script.sql
 
-mariadb-install-db
+mysql -u root < script.sql
 
-exec mariadbd --user=mysql
+service mariadb stop
+
+sleep 5
+
+exec mysqld
