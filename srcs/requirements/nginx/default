@@ -45,7 +45,7 @@ server {
 
         # Add index.php to the list if you are using PHP
         index index.php index.html index.htm index.nginx-debian.html;
-
+                ##Tom_Note: Name of website is here.
         server_name _;
 
         location / {
@@ -56,14 +56,16 @@ server {
 
         # pass PHP scripts to FastCGI server
         #
-        #location ~ \.php$ {
-        #       include snippets/fastcgi-php.conf;
-        #
-        #       # With php-fpm (or other unix sockets):
-        #       fastcgi_pass unix:/run/php/php7.4-fpm.sock;
-        #       # With php-cgi (or other tcp sockets):
+        location ~ \.php$ {
+              include snippets/fastcgi-php.conf;
+        
+              # With php-fpm (or other unix sockets):
+              fastcgi_pass wordpress_container:9000;
+              # With php-cgi (or other tcp sockets):
         #       fastcgi_pass 127.0.0.1:9000;
-        #}
+              fastcgi_param SCRIPT_FILENAME $document_root$request_uri;
+              include fastcgi_params;
+        }
 
         # deny access to .htaccess files, if Apache's document root
         # concurs with nginx's one
