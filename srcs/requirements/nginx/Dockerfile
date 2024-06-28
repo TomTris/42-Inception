@@ -12,7 +12,6 @@ RUN mkdir -p /etc/nginx/ssl \
 # openssl x509 -in /etc/nginx/ssl/server.crt  -text -noout -to see subj
 
 EXPOSE 443
-
 COPY ./default /etc/nginx/sites-enabled/default
 
 CMD ["nginx", "-g", "daemon off;"]
