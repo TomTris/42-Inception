@@ -12,15 +12,6 @@ COPY ./init_mariadb.sh /
 
 RUN chmod +x /init_mariadb.sh
 
-ENV MYSQL_ROOT_PASSWORD=root_password
-ENV	MYSQL_DATABASE=wordpress_database
-ENV	WORDPRESS_USER1=wordpress_user1
-ENV	WORDPRESS_USER1_PASSWORD=wordpress_user1_password
-ENV	WORDPRESS_DB_HOST=mariadb
-ENV	WORDPRESS_DB_NAME=WordPress_Database
-ENV	WORDPRESS_USER1=wordpress_user1
-ENV	WORDPRESS_USER1_PASSWORD=wordpress_user1_password
-
 EXPOSE 3306
 
 CMD ["/init_mariadb.sh"]
