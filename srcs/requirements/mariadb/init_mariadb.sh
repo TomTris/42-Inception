@@ -25,6 +25,6 @@ mysql -u root -p < script.sql
 # fi
 
 service mariadb stop
-sleep 5
+sleep 5	
 exec mariadbd --user=mysql
 # exec mariadbd --user=mysql --bootstrap
