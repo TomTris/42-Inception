@@ -15,4 +15,3 @@ EXPOSE 443
 COPY ./default /etc/nginx/sites-enabled/default
 
 CMD ["nginx", "-g", "daemon off;"]
-# CMD ["/bin/bash"]
