@@ -2,8 +2,8 @@ NAME = ./srcs/docker-compose.yml
 
 all:
 	@printf "Running configuration $(NAME) ... \n"
-	mkdir -p ~/home/${USER}/data/wordpress_volume1
-	mkdir -p ~/home/${USER}/data/mariadb_volume1
+	mkdir -p ~/home/${USER}/data/wordpress_volume
+	mkdir -p ~/home/${USER}/data/mariadb_volume
 	@docker-compose -f $(NAME) up -d
 
 ps:
@@ -38,10 +38,6 @@ fclean:
 	docker network prune --force;\
 	docker volume rm srcs_db-volume;\
 	docker volume rm srcs_wp-volume;\
-	rm -rf ~/home/${USER}/data/wordpress_volume1;\
-	rm -rf ~/home/${USER}/data/mariadb_volume1;
-
-
 
 .PHONY : all build down re clean fclean
 

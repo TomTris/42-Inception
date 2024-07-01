@@ -1,5 +1,6 @@
 #!/bin/sh
 
+if [ ! -f /var/lib/mysql/.mysql_secure_installed ]; then
 service mariadb start
 sleep 5
 
@@ -11,20 +12,19 @@ echo "FLUSH PRIVILEGES;" >> script.sql
 
 mysql < script.sql
 
-# if [ ! -f /var/lib/mysql/.mysql_secure_installed ]; then
-# 	mysql_secure_installation << LIMITER
-# 	$MYSQL_ROOT_PASSWORD
-# 	n
-# 	n
-# 	y
-# 	y
-# 	y
-# 	y
-# LIMITER
-#     touch /var/lib/mysql/.mysql_secure_installed
-# fi
-
+	mysql_secure_installation << LIMITER
+	$MYSQL_ROOT_PASSWORD
+	n
+	n
+	y
+	y
+	y
+	y
+LIMITER
+    touch /var/lib/mysql/.mysql_secure_installed
 service mariadb stop
 sleep 5	
+fi
+
 exec mariadbd --user=mysql
 # exec mariadbd --user=mysql --bootstrap
