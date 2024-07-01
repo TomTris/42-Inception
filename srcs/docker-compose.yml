@@ -19,10 +19,10 @@ services:
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
     restart: always
-    # healthcheck:
-    #   test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-    #   interval: 3s
-    #   retries: 3
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 3s
+      retries: 3
 
   wordpress:
     build: ./requirements/wordpress/.
@@ -47,7 +47,8 @@ services:
       WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
       WORDPRESS_USER1_EMAIL: ${WORDPRESS_USER1_EMAIL}
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
 
   nginx:
     build: ./requirements/nginx/.
@@ -72,10 +73,10 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: ~/home/${USER}/data/mariadb_volume
+      device: ~/home/${USER}/data/mariadb_volume1
 
   wp-volume:
     driver_opts:
       o: bind
       type: none
-      device: ~/home/${USER}/data/wordpress_volume
+      device: ~/home/${USER}/data/wordpress_volume1

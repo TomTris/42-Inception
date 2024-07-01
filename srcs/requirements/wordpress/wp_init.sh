@@ -4,6 +4,8 @@ cd /var/www/html
 echo "1"
 wp core download --allow-root
 echo "2"
+sleep 5
+echo "2.5"
 wp config create --force \
 					--url=$WP_URL \
 					--dbname=$WORDPRESS_DB_NAME \
