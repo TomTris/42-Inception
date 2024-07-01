@@ -12,14 +12,6 @@ COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./init_mariadb.sh /
 RUN chmod +x /init_mariadb.sh
 
-# ENV MYSQL_ROOT_PASSWORD=root_password
-# ENV MYSQL_DATABASE=wp_database
-# ENV WORDPRESS_USER1=wp_user1
-# ENV WORDPRESS_USER1_PASSWORD=wp_user1_password
-# ENV WORDPRESS_DB_HOST=localhost
-# ENV WORDPRESS_DB_NAME=wp_database
-
-
 EXPOSE 3306
 
 CMD ["/init_mariadb.sh"]
