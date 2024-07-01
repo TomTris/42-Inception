@@ -1,18 +1,33 @@
 FROM debian:bullseye
 
-RUN apt-get update && \
-    apt-get install -y nginx  php php-fpm  php-mysql  curl  wget  \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get upgrade -y && apt-get install -y php php7.4-fpm php-gd wget php-mysqli 
 
-WORKDIR var/www/html
-RUN curl -O https://wordpress.org/latest.tar.gz && \
-    tar -xzvf latest.tar.gz --strip-components=1 && \
-    rm latest.tar.gz && \
-    chown -R www-data:www-data /var/www/html
+RUN mkdir -p /var/www/html /run/php
 
-RUN mkdir -p /run/php && chown www-data:www-data /run/php
-COPY wp-config-sample.php /var/www/html/wp-config-sample.php
+RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /run/php
 
-EXPOSE 9000
 
-CMD exec php-fpm7.4 -F
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+	chmod +x wp-cli.phar && \
+	mv wp-cli.phar /usr/local/bin/wp
+
+WORKDIR /var/www/html
+COPY ./www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY ./wp_init.sh /setup_wp.sh
+RUN  chmod +x /setup_wp.sh
+
+# ENV MYSQL_ROOT_PASSWORD=root_password
+# ENV MYSQL_DATABASE=wp_database
+# ENV WORDPRESS_USER1=wp_user1
+# ENV WORDPRESS_USER1_PASSWORD=wp_user1_password
+# ENV WORDPRESS_DB_HOST=localhost
+# ENV WORDPRESS_DB_NAME=wp_database
+# ENV WP_URL=https://localhost
+# ENV WP_TITLE=qdo_WP
+# ENV WORDPRESS_ADMIN_NAME=qdo_boss
+# ENV WORDPRESS_ADMIN_PASSWORD=qdo_boss_pass
+# ENV WORDPRESS_ADMIN_EMAIL=hehehe@gmail.com
+# ENV WORDPRESS_USER1_EMAIL=hehehe1@gmail.com
+
+CMD ["/setup_wp.sh"]
