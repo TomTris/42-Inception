@@ -4,12 +4,12 @@ cd /var/www/html
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 wp core download --allow-root
-	sleep 5
+	sleep 2
 	wp config create --force \
 						--url=$WP_URL \
-						--dbname=$WORDPRESS_DB_NAME \
-						--dbuser=$WORDPRESS_USER1 \
-						--dbpass=$WORDPRESS_USER1_PASSWORD \
+						--dbname=$MYSQL_DATABASE \
+						--dbuser=$MYSQL_USER1 \
+						--dbpass=$MYSQL_USER1_PASSWORD \
 						--dbhost=mariadb:3306 \
 						--allow-root
 	wp core install --url=$WP_URL \
@@ -23,9 +23,6 @@ wp core download --allow-root
 					$WORDPRESS_USER1_EMAIL \
 					--user_pass=$WORDPRESS_USER1_PASSWORD \
 					--allow-root
-
-	wp option update home $WP_URL --allow-root
-	wp option update siteurl  $WP_URL --allow-root
 
 	chown -R www-data:www-data /var/www/html/*
 fi

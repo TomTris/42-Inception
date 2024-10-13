@@ -1,6 +1,16 @@
+#
+# These groups are read by MariaDB server.
+# Use it for options that only the server (but not clients) should see
+
+# this is read by the standalone daemon and embedded servers
 [server]
 
+# this is only for the mysqld standalone daemon
 [mysqld]
+
+#
+# * Basic Settings
+#
 
 user                    = mysql
 pid-file                = /run/mysqld/mysqld.pid
@@ -9,16 +19,30 @@ datadir                 = /var/lib/mysql
 tmpdir                  = /tmp
 lc-messages-dir         = /usr/share/mysql
 lc-messages             = en_US
-
 skip-external-locking
+
+# Broken reverse DNS slows down connections considerably and name resolve is
+# safe to skip if there are no "host by domain name" access grants
+#skip-name-resolve
+
+# Instead of skip-networking the default is now to listen only on
+# localhost which is more compatible and is not less secure.
 bind-address            = 0.0.0.0
-expire_logs_days        = 1
-character-set-server    = utf8mb4
-collation-server        = utf8mb4_general_ci
-port                    = 3306
 
-[embedded]
+#
+# * Fine Tuning
+#
 
-[mariadb]
+#key_buffer_size        = 128M
+#max_allowed_packet     = 1G
+#thread_stack           = 192K
+#thread_cache_size      = 8
+# This replaces the startup script and checks MyISAM tables if needed
+# the first time they are touched
+#myisam_recover_options = BACKUP
+#max_connections        = 100
+#table_cache            = 64
 
-[mariadb-10.5]
+#
+# * Logging and Replication
+#

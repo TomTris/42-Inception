@@ -2,8 +2,8 @@ NAME = ./srcs/docker-compose.yml
 
 all:
 	@printf "Running configuration $(NAME) ... \n"
-	mkdir -p /home/${USER}/data/wordpress_volume1
-	mkdir -p /home/${USER}/data/mariadb_volume1
+	mkdir -p ~/home/qdo/data/wp_vol
+	mkdir -p ~/home/qdo/data/mdb_vol
 	@docker-compose -f $(NAME) up -d
 
 ps:
