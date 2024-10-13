@@ -24,7 +24,17 @@ wp core download --allow-root
 					--user_pass=$WORDPRESS_USER1_PASSWORD \
 					--allow-root
 
+	# install plugin to enable communicating between wp and redis
+	wp plugin install redis-cache --activate --allow-root
+	wp config set WP_REDIS_HOST 'redis' --allow-root
+	wp config set WP_REDIS_PORT '6379' --allow-root
+	wp plugin activate redis-cache --allow-root
+	wp redis enable --allow-root
+
 	chown -R www-data:www-data /var/www/html/*
 fi
 
 exec php-fpm7.4 -F
+
+# To make sure wordpress use redis, use this command afterwards when things are done
+	# wp redis status --allow-root

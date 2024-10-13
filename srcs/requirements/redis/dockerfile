@@ -1,0 +1,11 @@
+FROM debian:bullseye
+
+RUN apt-get update -y && apt-get upgrade -y && apt-get install redis-server nano -y
+
+# bind 0.0.0.0 + protected-mode -> no
+COPY default /etc/redis/redis.conf
+
+EXPOSE 6379
+
+# run redis-server with conf file in foreground
+CMD redis-server /etc/redis/redis.conf --daemonize no

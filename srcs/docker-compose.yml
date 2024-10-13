@@ -19,8 +19,20 @@ services:
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 3s
-      retries: 3
+      retries: 10
 
+  redis:
+    build: ./requirements/redis/.
+    container_name: redis
+    image: redis
+    networks:
+      - inception_network
+    restart: always
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      retries: 10
+  
   wordpress:
     build: ./requirements/wordpress/.
     container_name: wordpress
@@ -48,6 +60,8 @@ services:
     depends_on:
       mariadb:
         condition: service_healthy
+      redis:
+        condition: service_healthy
 
   nginx:
     build: ./requirements/nginx/.
@@ -68,5 +82,16 @@ networks:
     name: inception_network
 
 volumes:
-  db-volume: ~/home/qdo/data/wp_vol
-  wp-volume: ~/home/qdo/data/mdb_vol
+  db-volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/home/qdo/data/wp_vol7
+      o: bind
+  wp-volume:
+    driver: local
+    driver_opts:
+      type: none
+      device: ~/home/qdo/data/mdb_vol7
+      o: bind
+
