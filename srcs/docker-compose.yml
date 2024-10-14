@@ -82,9 +82,9 @@ services:
     container_name: ftp-server
     image: ftp-server
     ports:
-      - 0.0.0.0:20:20
-      - 0.0.0.0:21:21
-      - 0.0.0.0:20000-22000:20000-22000
+      - "20:20"
+      - "21:21"
+      - 20000-22000:20000-22000
     volumes:
       - ssl-volume:/etc/nginx/ssl/
       - wp-volume:/var/www/html
@@ -103,13 +103,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ~/home/qdo/data/wp_vol14
+      device: ~/home/qdo/data/wp_vol15
       o: bind
   wp-volume:
     driver: local
     driver_opts:
       type: none
-      device: ~/home/qdo/data/mdb_vol14
+      device: ~/home/qdo/data/mdb_vol15
       o: bind
   
   ssl-volume:

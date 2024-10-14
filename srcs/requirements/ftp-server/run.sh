@@ -1,14 +1,16 @@
 #!/bin/bash
+
 # Wait for SSL certificates to be generated
 while [ ! -f /etc/nginx/ssl/server.crt ] || [ ! -f /etc/nginx/ssl/server.key ]; do
     echo "Waiting for SSL certificates..."
     sleep 2
 done
-echo "ok go"
+sleep 2
 
 
 # Start vsftpd
 echo "vsftpd now starts!"
+sleep 100000
 vsftpd /etc/vsftpd.conf
 
 # $? -ne 0 => $? not equal 0
