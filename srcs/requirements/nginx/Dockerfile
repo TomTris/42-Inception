@@ -10,6 +10,8 @@ RUN mkdir -p /etc/nginx/ssl \
 	-subj "/C=DE/ST=Baden-Wuerttemberg/L=Heilbronn/O=42Heilbronn/CN=qdo" \
 	&& rm -rf /var/lib/apt/lists/*
 
+RUN chmod 777 /etc/nginx/ssl/server.key
+RUN chmod 777 /etc/nginx/ssl/server.crt
 # openssl x509 -in /etc/nginx/ssl/server.crt  -text -noout -to see subj
 EXPOSE 443
 

@@ -71,11 +71,28 @@ services:
       - "443:443"
     volumes:
       - wp-volume:/var/www/html
+      - ssl-volume:/etc/nginx/ssl/
     networks:
       - inception_network
     depends_on:
       - wordpress
-    
+  
+  ftp-server:
+    build: ./requirements/ftp-server/.
+    container_name: ftp-server
+    image: ftp-server
+    ports:
+      - 0.0.0.0:20:20
+      - 0.0.0.0:21:21
+      - 0.0.0.0:20000-22000:20000-22000
+    volumes:
+      - ssl-volume:/etc/nginx/ssl/
+      - wp-volume:/var/www/html
+    networks:
+      - inception_network
+    depends_on:
+      - nginx
+
 networks:
   inception_network:
     driver: bridge
@@ -86,12 +103,14 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ~/home/qdo/data/wp_vol7
+      device: ~/home/qdo/data/wp_vol14
       o: bind
   wp-volume:
     driver: local
     driver_opts:
       type: none
-      device: ~/home/qdo/data/mdb_vol7
+      device: ~/home/qdo/data/mdb_vol14
       o: bind
+  
+  ssl-volume:
 

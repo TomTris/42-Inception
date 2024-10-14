@@ -1,0 +1,30 @@
+FROM debian:bullseye
+
+RUN apt-get update && apt-get upgrade -y
+
+# install very secure ftp daemon because Package 'ftp-server' has no installation candidate
+# ftp-server is not a direct package. Instead, it’s a "virtual package" representing several possible FTP server implementations
+RUN apt-get install vsftpd -y && mkdir -p /etc/nginx/ssl/ && mkdir -p /var/run/vsftpd/empty
+
+# # Create a user for FTP -> qdo with /home/qdo, add password to qdo, create home/ftpuser/ftp, ..
+RUN useradd -m -d /var/www/html/ qdo && echo "qdo:qdo_pass" | chpasswd
+
+# Configure vsftpd
+COPY default /etc/vsftpd.conf
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
+
+# Expose FTP ports
+EXPOSE 21
+EXPOSE 20000-22000
+
+# # Start vsftpd
+CMD ["/run.sh"]
+
+# curl -v ftp://qdo:qdo_pass@localhost
+# and
+# curl -v --ftp-ssl ftp://qdo:qdo_pass@localhost
+# and
+# curl -v --ftp-ssl --insecure ftp://qdo:qdo_pass@localhost
+# or curl -v --ftp-ssl --k ftp://qdo:qdo_pass@localhost
+# 
