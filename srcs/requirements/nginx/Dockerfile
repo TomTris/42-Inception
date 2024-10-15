@@ -18,6 +18,18 @@ EXPOSE 443
 # to change 80 => 443, add ssl, add encryption algorithm, turn off gzip and redirect request to wordpress's fpm.
 # other scriptname or "include" is already included in side avalable config files.
 COPY ./default /etc/nginx/sites-enabled/default
+RUN mkdir -p /var/www/html
 
+# for static file
+COPY ./github.png /github.png
+COPY ./graph.png /graph.png
+COPY ./intra.png /intra.png
+COPY ./linkedin.png /linkedin.png
+COPY ./lake.gif /lake.gif
+COPY ./qdo.html /qdo.html
+
+
+COPY run.sh /run.sh
+RUN chmod 744 /run.sh
 # run nginx on foreground
-CMD nginx -g "daemon off;"
+CMD ["/run.sh"]
