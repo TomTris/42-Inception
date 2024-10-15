@@ -1,0 +1,16 @@
+MYSQL_DATABASE=database1
+MYSQL_USER1=mysql_user1
+MYSQL_USER1_PASSWORD=mysql_user1_password
+
+WP_URL=localhost
+WP_TITLE=welcomeeeee
+WORDPRESS_ADMIN_NAME=qdo42
+WORDPRESS_ADMIN_PASSWORD=qdo42
+WORDPRESS_ADMIN_EMAIL=abc@gmail.com
+
+WORDPRESS_USER1=wordpress_user1
+WORDPRESS_USER1_EMAIL=wordpress_user1@gmail.com
+WORDPRESS_USER1_PASSWORD=wordpress_user1
+
+VSFTPUSER=vsftpd
+VSFTPPASS=vsftpd_pass

@@ -6,9 +6,6 @@ RUN apt-get update && apt-get upgrade -y
 # ftp-server is not a direct package. Instead, it’s a "virtual package" representing several possible FTP server implementations
 RUN apt-get install vsftpd -y && mkdir -p /etc/nginx/ssl/ && mkdir -p /var/run/vsftpd/empty
 
-# # Create a user for FTP -> qdo with /home/qdo, add password to qdo, create home/ftpuser/ftp, ..
-RUN useradd -m -d /var/www/html/ qdo && echo $VSFTPUSER:$VSFTPPASS | chpasswd
-
 # Configure vsftpd
 COPY default /etc/vsftpd.conf
 COPY run.sh /run.sh
@@ -27,3 +24,4 @@ CMD ["/run.sh"]
 # curl -v --ftp-ssl --insecure ftp://qdo:qdo_pass@localhost
 # or curl -v --ftp-ssl --k ftp://qdo:qdo_pass@localhost
 # curl -T test.txt ftp://'vsftpd':'VSFTP Pass'@localhost --ftp-ssl --insecure -v
+# curl --tlsv1.2 ftp://${VSFTPUSER}:${VSFTPPASS}@localhost --ftp-ssl --insecure -v

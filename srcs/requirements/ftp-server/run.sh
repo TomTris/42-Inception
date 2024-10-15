@@ -5,12 +5,12 @@ while [ ! -f /etc/nginx/ssl/server.crt ] || [ ! -f /etc/nginx/ssl/server.key ]; 
     echo "Waiting for SSL certificates..."
     sleep 2
 done
+
 sleep 2
 
-
+useradd -m -d /var/www/html/ ${VSFTPUSER} && echo ${VSFTPUSER}:${VSFTPPASS} | chpasswd
 # Start vsftpd
 echo "vsftpd now starts!"
-sleep 100000
 vsftpd /etc/vsftpd.conf
 
 # $? -ne 0 => $? not equal 0

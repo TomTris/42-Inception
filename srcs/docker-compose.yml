@@ -81,6 +81,11 @@ services:
     build: ./requirements/ftp-server/.
     container_name: ftp-server
     image: ftp-server
+    env_file:
+      - .env
+    environment:
+      VSFTPUSER: ${VSFTPUSER}
+      VSFTPPASS: ${VSFTPPASS}
     ports:
       - "20:20"
       - "21:21"
@@ -103,14 +108,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ~/home/qdo/data/wp_vol15
+      device: ~/home/qdo/data/wp_vol18
       o: bind
   wp-volume:
     driver: local
     driver_opts:
       type: none
-      device: ~/home/qdo/data/mdb_vol15
+      device: ~/home/qdo/data/mdb_vol18
       o: bind
   
   ssl-volume:
-
