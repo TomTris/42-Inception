@@ -33,3 +33,5 @@ COPY run.sh /run.sh
 RUN chmod 744 /run.sh
 # run nginx on foreground
 CMD ["/run.sh"]
+
+# How to check if it is ok? just https://localhost:443. It works? ok nginx works

@@ -23,5 +23,8 @@ CMD ["/run.sh"]
 # and
 # curl -v --ftp-ssl --insecure ftp://qdo:qdo_pass@localhost
 # or curl -v --ftp-ssl --k ftp://qdo:qdo_pass@localhost
-# curl -T test.txt ftp://'vsftpd':'VSFTP Pass'@localhost --ftp-ssl --insecure -v
+# curl -T test.txt ftp://'vsftpd':'VSFTP Pass'@localhost --ftp-ssl --insecure -v to upload something
+
+# If it works and does it encrypt data??
 # curl --tlsv1.2 ftp://${VSFTPUSER}:${VSFTPPASS}@localhost --ftp-ssl --insecure -v
+# It should work. Key workd is --ftp-ssl and --tlsv1.2 for using TLSv1.2

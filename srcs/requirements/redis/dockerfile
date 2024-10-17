@@ -9,3 +9,15 @@ EXPOSE 6379
 
 # run redis-server with conf file in foreground
 CMD redis-server /etc/redis/redis.conf --daemonize no
+
+# How to check if it works? It's hard question
+# Way 1: make logs. If you see:
+# wordpress     | Success: Added the constant 'WP_REDIS_HOST' to the 'wp-config.php' file with the value 'redis'.
+# wordpress     | Success: Added the constant 'WP_REDIS_PORT' to the 'wp-config.php' file with the value '6379'.
+# wordpress     | Warning: Plugin 'redis-cache' is already active.
+# wordpress     | Success: Plugin already activated.
+# wordpress     | Success: Object cache enabled.
+# => it works
+
+# Way 2:. you can change bind of /etc/redis/redis.config to something stupid, it won't work.
+# 0.0.0.0 to make sur wordpress can connect to redis.

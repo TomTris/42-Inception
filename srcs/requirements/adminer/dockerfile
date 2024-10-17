@@ -9,11 +9,14 @@ COPY run.sh /run.sh
 RUN chmod 744 /run.sh
 
 # In here, we access wordpress already, just need to access mariadb -> done
+# just go to https://localhost/adminer.php
+# Then
 # Datenbank System	 MySQL 
 # Server	 mariadb 
 # Benutzer	 mysql_user1
 # Passwort	 •••• 
 # Datenbank	 database1
+# Then you have access.
 
 CMD ["/run.sh"]
 

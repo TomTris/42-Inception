@@ -28,3 +28,5 @@ RUN  chmod +x /setup_wp.sh
 EXPOSE 9000
 
 CMD ["/setup_wp.sh"]
+
+# Does it works? https://localhost:443. If it's there -=> it works.

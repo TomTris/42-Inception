@@ -16,3 +16,7 @@ RUN chmod +x /init_mariadb.sh
 COPY ./50-server.cnf etc/mysql/mariadb.conf.d/50-server.cnf
 
 CMD ["/init_mariadb.sh"]
+
+# How to check it works? Just shutdown then open again.
+# If data still there -> we use mariadb to save data into a file
+# if after shut down, data is there => data is saved and we DO use mariadb to save data

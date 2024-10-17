@@ -2,8 +2,8 @@
 
 # Wait for SSL certificates to be generated
 while [ ! -f /etc/nginx/ssl/server.crt ] || [ ! -f /etc/nginx/ssl/server.key ]; do
-    echo "Waiting for SSL certificates..."
     sleep 2
+    echo "Waiting for SSL certificates..."
 done
 
 sleep 2
