@@ -8,5 +8,12 @@ RUN wget https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1
 COPY run.sh /run.sh
 RUN chmod 744 /run.sh
 
+# In here, we access wordpress already, just need to access mariadb -> done
+# Datenbank System	 MySQL 
+# Server	 mariadb 
+# Benutzer	 mysql_user1
+# Passwort	 •••• 
+# Datenbank	 database1
+
 CMD ["/run.sh"]
 
