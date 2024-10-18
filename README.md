@@ -18,6 +18,12 @@ Requirement:
 Bonus list:
 ...
 - Add redis for wordpress cache
-- add ftp-server pointing to wp-volume
+- add ftp-server pointing to wp-volume (I also made securer through ssl)
+- create a static file (qdo.html)
+- Add adminer
+- 1 Service as i want, and i think it's usefull => Add wps-hide-login.
+<!-- localhost/?login will be the default login page. We are allow to change it as we want in the setting part of admin account. 
+Reason: preventing brute forcing / spam -->
 
+<!-- This is the result of the first time of 3.5 months ago -->
 Score sofar: 100 / 125
