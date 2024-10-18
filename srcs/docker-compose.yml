@@ -90,6 +90,17 @@ services:
     depends_on:
       - wordpress
   
+  wps-hide-login:
+    build: ./requirements/wps-hide-login/.
+    container_name: wps-hide-login
+    image: wps-hide-login
+    volumes:
+      - wp-volume:/var/www/html
+    networks:
+      - inception_network
+    depends_on:
+      - wordpress
+  
   ftp-server:
     build: ./requirements/ftp-server/.
     container_name: ftp-server
@@ -121,13 +132,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ~/home/qdo/data/wp_vol19
+      device: ~/home/qdo/data/wp_vol31
       o: bind
   wp-volume:
     driver: local
     driver_opts:
       type: none
-      device: ~/home/qdo/data/mdb_vol19
+      device: ~/home/qdo/data/mdb_vol31
       o: bind
   
   ssl-volume:

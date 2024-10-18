@@ -1,0 +1,9 @@
+FROM debian:bullseye
+
+COPY ./wps-hide-login.d /wps-hide-login
+COPY ./run.sh /
+RUN chmod 744 /run.sh
+
+CMD ["/run.sh"]
+
+

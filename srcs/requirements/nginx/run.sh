@@ -7,4 +7,5 @@ mv /linkedin.png /var/www/html/linkedin.png
 mv /qdo.html /var/www/html/qdo.html
 mv /lake.gif /var/www/html/lake.gif
 
+echo "Ready"
 nginx -g "daemon off;"

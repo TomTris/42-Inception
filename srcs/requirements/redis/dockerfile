@@ -21,3 +21,9 @@ CMD redis-server /etc/redis/redis.conf --daemonize no
 
 # Way 2:. you can change bind of /etc/redis/redis.config to something stupid, it won't work.
 # 0.0.0.0 to make sur wordpress can connect to redis.
+
+# way3: Go in localhost and see cache object there. you also can go around wordpress, then
+# docker exec -it redis bash
+# redis-cli
+# keys *
+# if it prints many things -> it's correct. It prints (nil) -> wrong,

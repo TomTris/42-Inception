@@ -28,12 +28,21 @@ wp core download --allow-root
 	wp plugin install redis-cache --activate --allow-root
 	wp config set WP_REDIS_HOST 'redis' --allow-root
 	wp config set WP_REDIS_PORT '6379' --allow-root
+	# wp config set WP_CACHE 'yes' --allow-root # -> to enable WP use CACHE, But no need because somehow it's overriden
+	wp config set WP_REDIS_DATABASE '0' --allow-root
 	wp plugin activate redis-cache --allow-root
 	wp redis enable --allow-root
+	
+	while [ ! -f /var/www/html/wp-content/plugins/wps-hide-login/wps-hide-login.php ]; do
+		sleep 5
+		echo "Waiting for wps-hide-login getting done"
+	done
+	sleep 1
+	wp plugin activate wps-hide-login --allow-root
 
 	chown -R www-data:www-data /var/www/html/*
 fi
-
+echo "Wordpress Done"
 exec php-fpm7.4 -F
 
 # To make sure wordpress use redis, use this command afterwards when things are done
