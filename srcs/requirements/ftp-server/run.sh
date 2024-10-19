@@ -1,17 +1,23 @@
 #!/bin/bash
 
-# Wait for SSL certificates to be generated
+echo "ftp sript is running"
 while [ ! -f /etc/nginx/ssl/server.crt ] || [ ! -f /etc/nginx/ssl/server.key ]; do
     sleep 2
     echo "Waiting for SSL certificates..."
 done
 
-sleep 2
+sleep 1
 
-useradd -m -d /var/www/html/ ${VSFTPUSER} && echo ${VSFTPUSER}:${VSFTPPASS} | chpasswd
-# Start vsftpd
-echo "vsftpd now starts!"
-vsftpd /etc/vsftpd.conf
+if [ ! -f /vstfp_done ]; then
+    echo "Creating user!"
+    useradd -m -d /var/www/html/ ${VSFTPUSER} && echo ${VSFTPUSER}:${VSFTPPASS} | chpasswd
+    # Start vsftpd
+    echo "vsftpd now starts!"
+    chown vsftpd:vsftpd /var/www/html/
+    vsftpd /etc/vsftpd.conf
+else
+    echo "vsftpd is already started before, using the available vsftpd.conf."
+fi
 
 # $? -ne 0 => $? not equal 0
 if [ $? -ne 0 ]; then

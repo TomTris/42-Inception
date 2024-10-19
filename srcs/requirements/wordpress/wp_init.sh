@@ -4,7 +4,7 @@ cd /var/www/html
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 wp core download --allow-root
-	sleep 2
+	sleep 10
 	wp config create --force \
 						--url=$WP_URL \
 						--dbname=$MYSQL_DATABASE \

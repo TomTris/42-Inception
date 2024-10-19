@@ -1,3 +1,5 @@
+# Because all this one is not real, should not consider it as leaking.
+# Just leave an example here for instruction purposes.
 MYSQL_DATABASE=database1
 MYSQL_USER1=mysql_user1
 MYSQL_USER1_PASSWORD=mysql_user1_password

@@ -19,11 +19,15 @@ Bonus list:
 ...
 - Add redis for wordpress cache
 - add ftp-server pointing to wp-volume (I also made securer through ssl)
-- create a static file (qdo.html)
-- Add adminer
+- create a static file (https://localhost:443/qdo.html)
+- Add adminer (https://localhost:443/adminer.php)
 - 1 Service as i want, and i think it's usefull => Add wps-hide-login.
 <!-- localhost/?login will be the default login page. We are allow to change it as we want in the setting part of admin account. 
 Reason: preventing brute forcing / spam -->
 
 <!-- This is the result of the first time of 3.5 months ago -->
 Score sofar: 100 / 125
+
+<!-- At 42, if you put it into Virtual machine, make sure to not choose gnorme and debian desktop env or it will take your too much resources that ftp-server took too long to response -> doesn't work -->
+
+  <!-- lxde xfce4 lightdm firefox-esr are light package to still be able run firefox-->

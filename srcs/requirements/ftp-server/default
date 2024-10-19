@@ -13,7 +13,7 @@
 #and add
 pasv_enable=YES
 pasv_min_port=20000
-pasv_max_port=22000
+pasv_max_port=20050
 
 # anonymouse use SSL/
 allow_anon_ssl=NO

@@ -4,7 +4,9 @@ RUN apt-get update && apt-get upgrade -y
 
 # install very secure ftp daemon because Package 'ftp-server' has no installation candidate
 # ftp-server is not a direct package. Instead, it’s a "virtual package" representing several possible FTP server implementations
-RUN apt-get install vsftpd -y && mkdir -p /etc/nginx/ssl/ && mkdir -p /var/run/vsftpd/empty
+RUN apt-get install vsftpd -y && mkdir -p /etc/nginx/ssl/ \
+    && mkdir -p /var/run/vsftpd/empty \
+    && mkdir -p /etc/nginx/ssl/
 
 # Configure vsftpd
 COPY default /etc/vsftpd.conf
@@ -12,7 +14,7 @@ COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
 # Expose FTP ports
-EXPOSE 21 21 20000-22000
+EXPOSE 20 21 20000-20050
 
 # # Start vsftpd
 CMD ["/run.sh"]
@@ -21,10 +23,10 @@ CMD ["/run.sh"]
 # and
 # curl -v --ftp-ssl ftp://qdo:qdo_pass@localhost
 # and
-# curl -v --ftp-ssl --insecure ftp://qdo:qdo_pass@localhost
-# or curl -v --ftp-ssl --k ftp://qdo:qdo_pass@localhost
-# curl -T test.txt ftp://'vsftpd':'VSFTP Pass'@localhost --ftp-ssl --insecure -v to upload something
+# curl -v --ftp-ssl --insecure ftp://vsftpd:vsftpd_pass@localhost
+# or curl -v --ftp-ssl --k ftp://vsftpd:vsftpd_pass@localhost
+# curl -T test.txt ftp://'vsftpd':'vsftpd_pass'@localhost --ftp-ssl --insecure -v to upload something
 
 # If it works and does it encrypt data??
-# curl --tlsv1.2 ftp://${VSFTPUSER}:${VSFTPPASS}@localhost --ftp-ssl --insecure -v
+# curl --tlsv1.2 ftp://vsftpd:vsftpd_pass@localhost --ftp-ssl --insecure -v
 # It should work. Key workd is --ftp-ssl and --tlsv1.2 for using TLSv1.2

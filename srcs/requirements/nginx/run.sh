@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Is moving"
+
 mv /github.png /var/www/html/github.png
 mv /graph.png /var/www/html/graph.png
 mv /intra.png /var/www/html/intra.png

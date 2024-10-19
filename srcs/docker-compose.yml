@@ -11,10 +11,6 @@ services:
       - inception_network
     env_file:
       - .env
-    environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER1: ${MYSQL_USER1}
-      MYSQL_USER1_PASSWORD: ${MYSQL_USER1_PASSWORD}
     restart: always
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
@@ -43,20 +39,6 @@ services:
       - inception_network
     env_file:
       - .env
-    environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER1: ${MYSQL_USER1}
-      MYSQL_USER1_PASSWORD: ${MYSQL_USER1_PASSWORD}
-      
-      WP_URL: ${WP_URL}
-      WP_TITLE: ${WP_TITLE}
-      WORDPRESS_ADMIN_NAME: ${WORDPRESS_ADMIN_NAME}
-      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
-      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
-
-      WORDPRESS_USER1: ${WORDPRESS_USER1}
-      WORDPRESS_USER1_EMAIL: ${WORDPRESS_USER1_EMAIL}
-      WORDPRESS_USER1_PASSWORD: ${WORDPRESS_USER1_PASSWORD}
     depends_on:
       mariadb:
         condition: service_healthy
@@ -107,20 +89,15 @@ services:
     image: ftp-server
     env_file:
       - .env
-    environment:
-      VSFTPUSER: ${VSFTPUSER}
-      VSFTPPASS: ${VSFTPPASS}
     ports:
       - "20:20"
       - "21:21"
-      - 20000-22000:20000-22000
+      - 20000-20050:20000-20050
     volumes:
       - ssl-volume:/etc/nginx/ssl/
       - wp-volume:/var/www/html
     networks:
       - inception_network
-    depends_on:
-      - nginx
 
 networks:
   inception_network:
@@ -132,13 +109,13 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: ~/home/qdo/data/wp_vol31
+      device: /home/qdo/data/wp_volasd2
       o: bind
   wp-volume:
     driver: local
     driver_opts:
       type: none
-      device: ~/home/qdo/data/mdb_vol31
+      device: /home/qdo/data/mdb_volasd2
       o: bind
   
   ssl-volume:
